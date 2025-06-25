@@ -12,9 +12,14 @@ export const refs = {
 
   // Form
   searchForm: document.querySelector('.search-form'),
+  resetFormBtn: document.querySelector('.search-form__btn-clear'),
+
+  // Nav
+  totalProductsInCart: document.querySelector('.nav__count'),
 
   // Modal
   modal: document.querySelector('.modal'),
+  modalProduct: document.querySelector('.modal-product'),
   modalCloseBtn: document.querySelector('.modal__close-btn'),
   wishListBtn: document.querySelector('.modal-product__btn--wishlist'),
   cardListBtn: document.querySelector('.modal-product__btn--cart'),

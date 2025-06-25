@@ -1,20 +1,16 @@
 //Логіка сторінки Home
 
 import { refs } from './js/refs';
-import {
-  fetchCategories,
-  fetchProductByCategory,
-  fetchProductById,
-  fetchProductByName,
-  fetchProducts,
-} from './js/products-api';
-import {
-  categoryList,
-  productsList,
-  productsListByCategory,
-} from './js/render-function';
-import { handleClickOnCategory } from './js/handlers';
+
+import { categoryList, productsList } from './js/render-function';
+import { handleClickOnCategory, resetForm, searchProduct } from './js/handlers';
+
+import { closeModal, handleClickOnProductCard } from './js/modal';
 
 categoryList();
 productsList();
 refs.categoriesList.addEventListener('click', handleClickOnCategory);
+refs.productsList.addEventListener('click', handleClickOnProductCard);
+refs.modalCloseBtn.addEventListener('click', closeModal);
+refs.searchForm.addEventListener('submit', searchProduct);
+refs.resetFormBtn.addEventListener('click', resetForm);

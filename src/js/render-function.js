@@ -56,10 +56,32 @@ export const productsList = async () => {
   );
 };
 
-export const productsListByCategory = async () => {
-  const data = await fetchProductByCategory();
+export function productsListByCategory(data) {
+  refs.productsList.innerHTML = '';
   refs.productsList.insertAdjacentHTML(
     'beforeend',
     createMarkupProductsList(data)
   );
-};
+}
+
+export function modalProductById({
+  images,
+  description,
+  title,
+  tags,
+  returnPolicy,
+  price,
+  shippingInformation,
+}) {
+  return `<img class="modal-product__img" src="${images[0]}" alt="${description}" />
+      <div class="modal-product__content">
+        <p class="modal-product__title">${title}</p>
+        <ul class="modal-product__tags">${tags}</ul>
+        <p class="modal-product__description">${description}</p>
+        <p class="modal-product__shipping-information">Shipping:${shippingInformation}</p>
+        <p class="modal-product__return-policy">Return Policy:${returnPolicy}</p>
+        <p class="modal-product__price">Price:${price} $</p>
+        <button class="modal-product__buy-btn" type="button">Buy</button>
+      </div>
+`;
+}

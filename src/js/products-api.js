@@ -26,9 +26,11 @@ export async function fetchProducts(currentPage = 1) {
   }
 }
 
-export async function fetchProductByCategory(category) {
+export async function fetchProductByCategory(category, currentPage = 1) {
   try {
-    const { data } = await axios(`/products/category/${category}`);
+    const { data } = await axios(
+      `/products/category/${category}?limit=12&skip=${(currentPage - 1) * 12}`
+    );
     return data.products;
   } catch (error) {
     iziToast.error({ message: error.message, position: 'topRight' });
@@ -46,8 +48,8 @@ export async function fetchProductById(id) {
 
 export async function fetchProductByName(name) {
   try {
-    const { data } = await axios(`/search?q=${name}`);
-    return data;
+    const { data } = await axios(`/products/search?q=${name}&limit=12`);
+    return data.products;
   } catch (error) {
     iziToast.error({ message: error.message, position: 'topRight' });
   }
