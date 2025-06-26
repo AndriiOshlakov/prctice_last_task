@@ -5,24 +5,24 @@ import { refs } from './refs';
 
 let wishList = [];
 
-export const addToCart = id => {
+export const addToCart = (id, btn) => {
   let cartList = JSON.parse(localStorage.getItem(STORAGE_KEYS.CARD_KEY)) || [];
 
+  btn.textContent = 'Remove from Cart';
   if (!cartList.includes(id)) {
-    refs.cardListBtn.textContent = 'Remove from Cart';
     cartList.push(id);
   }
-  //   refs.totalProductsInCart += 1;
+
   localStorage.setItem(STORAGE_KEYS.CARD_KEY, JSON.stringify(cartList));
+  refs.totalProductsInCart.textContent = cartList.length;
 };
 
-export const removeFromCart = id => {
+export const removeFromCart = (id, btn) => {
   let cartList = JSON.parse(localStorage.getItem(STORAGE_KEYS.CARD_KEY)) || [];
 
-  if (cartList.includes(id)) {
-    refs.cardListBtn.textContent = 'Add to Cart';
-    cartList = cartList.slice(1, [id]);
-    // refs.totalProductsInCart -= 1;
-    localStorage.setItem(STORAGE_KEYS.CARD_KEY, JSON.stringify(cartList));
-  }
+  btn.textContent = 'Add to Cart';
+  cartList = cartList.filter(currentId => currentId !== id);
+
+  localStorage.setItem(STORAGE_KEYS.CARD_KEY, JSON.stringify(cartList));
+  refs.totalProductsInCart.textContent = cartList.length;
 };

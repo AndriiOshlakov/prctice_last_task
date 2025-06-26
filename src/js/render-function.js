@@ -56,6 +56,13 @@ export const productsList = async () => {
   );
 };
 
+export function productListForCart(data) {
+  refs.productsList.insertAdjacentHTML(
+    'beforeend',
+    createMarkupProductsList(data)
+  );
+}
+
 export function productsListByCategory(data) {
   refs.productsList.innerHTML = '';
   refs.productsList.insertAdjacentHTML(

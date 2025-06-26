@@ -43,6 +43,7 @@ export async function fetchProductById(id) {
     return data;
   } catch (error) {
     iziToast.error({ message: error.message, position: 'topRight' });
+    throw error;
   }
 }
 

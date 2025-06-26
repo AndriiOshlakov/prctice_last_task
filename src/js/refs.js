@@ -22,5 +22,9 @@ export const refs = {
   modalProduct: document.querySelector('.modal-product'),
   modalCloseBtn: document.querySelector('.modal__close-btn'),
   wishListBtn: document.querySelector('.modal-product__btn--wishlist'),
-  cardListBtn: document.querySelector('.modal-product__btn--cart'),
+
+  // Cart
+
+  itemsValue: document.querySelector('[data-count]'),
+  totalValue: document.querySelector('[data-price]'),
 };
