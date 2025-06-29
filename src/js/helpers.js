@@ -13,7 +13,7 @@ export function totalPriceInCart(arr) {
     return acc + price;
   }, 0);
 
-  refs.totalValue.textContent = totalPrice;
+  refs.totalValue.textContent = Math.floor(totalPrice);
 }
 export function valuesInCart() {
   refs.itemsValue.textContent = cartListFromLocalStorage.length;

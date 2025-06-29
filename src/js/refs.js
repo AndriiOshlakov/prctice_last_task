@@ -25,6 +25,9 @@ export const refs = {
 
   // Cart
 
-  itemsValue: document.querySelector('[data-count]'),
+  itemsValue: document.querySelector('[data-cart-count]'),
   totalValue: document.querySelector('[data-price]'),
+
+  // Wish List
+  itemsWishValue: document.querySelector('[data-wishlist-count]'),
 };

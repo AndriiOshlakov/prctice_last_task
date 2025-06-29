@@ -3,8 +3,6 @@
 import { STORAGE_KEYS } from './constants';
 import { refs } from './refs';
 
-let wishList = [];
-
 export const addToCart = (id, btn) => {
   let cartList = JSON.parse(localStorage.getItem(STORAGE_KEYS.CARD_KEY)) || [];
 

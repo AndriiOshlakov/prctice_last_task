@@ -7,6 +7,7 @@ import { modalProductById } from './render-function';
 import { addToCart, removeFromCart } from './storage';
 
 let onCartBtnClick = null;
+let onWishBtnClick = null;
 export const handleClickOnProductCard = async event => {
   const productCard = event.target;
   if (!productCard.closest('.products__item')) {
@@ -20,7 +21,9 @@ export const handleClickOnProductCard = async event => {
   refs.modal.classList.add('modal--is-open');
 
   let cartList = JSON.parse(localStorage.getItem(STORAGE_KEYS.CARD_KEY)) || [];
+
   const cardListBtn = document.querySelector('.modal-product__btn--cart');
+
   // Встановлюємо початковий текст кнопки
   cardListBtn.textContent = cartList.includes(id)
     ? 'Remove from Cart'
@@ -28,17 +31,42 @@ export const handleClickOnProductCard = async event => {
 
   // Створюємо функцію обробника та зберігаємо її для подальшого видалення
   onCartBtnClick = () => {
-    let cartList =
-      JSON.parse(localStorage.getItem(STORAGE_KEYS.CARD_KEY)) || [];
-    if (cartList.includes(id)) {
-      removeFromCart(id, cardListBtn);
+    if (!cartList.includes(id)) {
+      cardListBtn.textContent = 'Remove from Cart';
+      cartList.push(id);
+      localStorage.setItem(STORAGE_KEYS.CARD_KEY, JSON.stringify(cartList));
+      refs.itemsValue.textContent = cartList.length;
     } else {
-      addToCart(id, cardListBtn);
+      cardListBtn.textContent = 'Add to Cart';
+      cartList = cartList.filter(currentId => currentId !== id);
+      localStorage.setItem(STORAGE_KEYS.CARD_KEY, JSON.stringify(cartList));
+      refs.itemsValue.textContent = cartList.length;
     }
   };
-
   // Додаємо слухача
   cardListBtn.addEventListener('click', onCartBtnClick);
+
+  const wishListBtn = document.querySelector('.modal-product__btn--wishlist');
+  let wishList = JSON.parse(localStorage.getItem(STORAGE_KEYS.WISH_KEY)) || [];
+
+  wishListBtn.textContent = wishList.includes(id)
+    ? 'Remove from Wishlist'
+    : 'Add to Wishlist';
+
+  onWishBtnClick = () => {
+    if (!wishList.includes(id)) {
+      wishListBtn.textContent = 'Remove from Wishlist';
+      wishList.push(id);
+      localStorage.setItem(STORAGE_KEYS.WISH_KEY, JSON.stringify(wishList));
+      refs.itemsWishValue.textContent = wishList.length;
+    } else {
+      wishListBtn.textContent = 'Add to Wishlist';
+      wishList = wishList.filter(currentId => currentId !== id);
+      localStorage.setItem(STORAGE_KEYS.WISH_KEY, JSON.stringify(wishList));
+      refs.itemsWishValue.textContent = wishList.length;
+    }
+  };
+  wishListBtn.addEventListener('click', onWishBtnClick);
 };
 export const closeModal = () => {
   refs.modal.classList.remove('modal--is-open');
@@ -46,5 +74,10 @@ export const closeModal = () => {
   if (cardListBtn && onCartBtnClick) {
     cardListBtn.removeEventListener('click', onCartBtnClick);
     onCartBtnClick = null; // обнуляємо, щоб не тримати зайве
+  }
+  const wishListBtn = document.querySelector('.modal-product__btn--wishlist');
+  if (wishListBtn && onWishBtnClick) {
+    wishListBtn.removeEventListener('click', onWishBtnClick);
+    onWishBtnClick = null;
   }
 };
